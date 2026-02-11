@@ -6,6 +6,15 @@ Connect to AP via uart on backside of device or port 2 telnet. Escape booting th
 setenv bootfile ipq.itb
 setenv serverip [your tftp server ip] 
 setenv ipaddress [another ip in the same subnet]
+setenv bootargs 'root=/dev/ubiblock0_1 rootfstype=squashfs ubi.mtd=rootfs1'
+setenv bootcmd 'ubi part rootfs1; ubi read 0x85000000 kernel 4952064; bootm 0x85000000;'
+setenv mtdparts mtdparts=nand0:0xa480000@0x1b80000(rootfs1)
+setenv mtdids nand0=nand0
+setenv fdt_high 0x87000000
+setenv fileaddr 85000000
+setenv filesize 6AE12B
+setenv mtddevname rootfs1
+nand erase.part rootfs1 
 saveenv
 tftpboot 0x85000000 ipq.itb 
 bootm 0x85000000
@@ -33,3 +42,7 @@ ubiupdatevol /dev/ubi0_0 /tmp/sysupgrade-8dev_jalapeno/kernel
 ubiupdatevol /dev/ubi0_1 /tmp/sysupgrade-8dev_jalapeno/root
 sync
 reboot -f
+
+
+
+
