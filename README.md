@@ -5,19 +5,32 @@ Board files and config for compiling Extreme AP-7612 firmware OpenWRT
 Connect to AP via uart on backside of device or port 2 telnet. Escape booting the Extreme OS via spamming any key in order to gain uboot prompt. 
 
 
-setenv serverip [your tftp server ip] 
+setenv serverip [your tftp server ip]
+
 setenv ipaddress [another ip in the same subnet]
+
 setenv bootargs 'root=/dev/ubiblock0_1 rootfstype=squashfs ubi.mtd=rootfs1'
+
 setenv bootcmd 'ubi part rootfs1; ubi read 0x85000000 kernel 4952064; bootm 0x85000000;'
+
 setenv mtdparts mtdparts=nand0:0xa480000@0x1b80000(rootfs1)
+
 setenv mtdids nand0=nand0
+
 setenv fdt_high 0x87000000
+
 setenv fileaddr 85000000
+
 setenv filesize 6AE12B
+
 setenv mtddevname rootfs1
+
 nand erase.part rootfs1 
+
 saveenv
+
 tftpboot 0x85000000 ipq.itb 
+
 bootm 0x85000000
 
 After booting InitramFS, type the following (to make the wan port a LAN port.)
