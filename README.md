@@ -33,7 +33,7 @@ tftpboot 0x85000000 ipq.itb
 
 bootm 0x85000000
 
-After booting InitramFS, type the following (to make the wan port a LAN port.)
+# 3. After booting InitramFS, type the following (to make the wan port a LAN port.)
 
 sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
 
@@ -41,21 +41,21 @@ sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
 
 #upload firmware through [gui](https://192.168.1.1/cgi-bin/luci/admin/system/flash)
 
-# 2. Wipe and format rootfs1 as UBI
+# 4. Wipe and format rootfs1 as UBI
 ubidetach -p /dev/mtd15 2>/dev/null
 
 ubiformat /dev/mtd15 -y
 
 ubiattach -p /dev/mtd15
 
-# 3. Create the volumes U‑Boot expects
+# 5. Create the volumes U‑Boot expects
 ubimkvol /dev/ubi0 -N kernel -s 6MiB #kernel volume
 
 ubimkvol /dev/ubi0 -N rootfs -s 30MiB -t static #read only os
 
 ubimkvol /dev/ubi0 -N rootfs_data -m -t dynamic #writable etc and stuff
 
-# 4. Install the OS on the volumes
+# 6. Install the OS on the volumes
 cd /tmp
 
 tar -xf firmware.bin
