@@ -33,7 +33,35 @@
 			reg = <0x1953000 0x1000>;
 			qcom,ess-interface-select = <TCSR_ESS_PSGMII>;
 		};
-
+  gpio_leds {
+        compatible = "gpio-leds";
+        status = "okay";
+        pinctrl-names = "default";
+        pinctrl-0 = <&led_pins>;
+        led@0 {
+            reg = <0>;
+            label = "ap7612:orange:status";
+            gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
+            default-state = "off";
+            linux,default-trigger = "gpio";
+        };
+        
+        led@1 {
+            reg = <1>;
+            label = "ap7612:green:power";
+            gpios = <&tlmm 43 GPIO_ACTIVE_HIGH>;
+            default-state = "on";
+            linux,default-trigger = "default-on";
+        };
+        
+        led@2 {
+            reg = <2>;
+            label = "ap7612:blue:wlan";
+            gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
+            default-state = "off";
+            linux,default-trigger = "phy0radio";
+        };
+		};
 	};
 };
 
@@ -55,10 +83,17 @@
 &tlmm {
 
 pulldowns {
+status = "okay";
+ led_pins: led-pins {
+        pins = "gpio42", "gpio43", "gpio44"; 
+        function = "gpio";
+        drive-strength = <6>;
+        bias-disable;
+    };
 			pins = "gpio57", "gpio60", "gpio61",
 			       "gpio62", "gpio63", "gpio64",
 			       "gpio65", "gpio66", "gpio67",
-			       "gpio68", "gpio69"; //"gpio54", "gpio55", "gpio56",
+			       "gpio68", "gpio69";
 			function = "qpic";
 			bias-pull-down;
 		};
@@ -150,10 +185,14 @@ pulldowns {
 	pinctrl-0 = <&spi_0_pins>;
 	pinctrl-names = "default";
 	cs-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-//cs-gpios = <&tlmm 54 GPIO_ACTIVE_HIGH>, <&tlmm 59 GPIO_ACTIVE_HIGH>;
+
 };
 
 &nand {
+		status = "okay";
+
+
+	&nand {
 		status = "okay";
 
 		//compatible = "jedec,spi-nor";
@@ -235,11 +274,25 @@ pulldowns {
                 read-only;
             };
 
-			partition@b80000 {
-				label = "ubi";
-				reg = <0x000000b80000 0x0001e480000>; /* full remaining NAND */
+           partition@b80000 {
+				label = "linux1";
+				reg = <0x000000b80000 0x00000800000>;   /* length = 8 MB */
 			};
 
+			partition@1380000 {
+				label = "linux2";
+				reg = <0x000001380000 0x00000800000>;   /* length = 8 MB */
+			};
+
+			partition@1b80000 {
+				label = "rootfs1";
+				reg = <0x000001b80000 0x00008d00000>;   /* length = ~141 MB */
+			};
+
+			partition@a480000 {
+				label = "rootfs2";
+				reg = <0x00000a480000 0x00008300000>;   /* length = ~131 MB */
+			};
 
 			partition@12d80000 {
 				label = "var2";
