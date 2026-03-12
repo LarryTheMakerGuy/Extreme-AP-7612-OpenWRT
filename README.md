@@ -33,5 +33,5 @@ tftpboot 0x85000000 ipq.itb
 bootm 0x85000000
 
 
-# 2. Install the OS on the volumes
-Open up your browser to https://192.168.1.1/cgi-bin/luci/admin/system/flash and select flash image. Follow the prompts to upload the sysupgrade.bin image and click 'continue' to install Openwrt.
+# 2. Install the OpenWRT on the AP
+Open up your browser to https://192.168.1.1/cgi-bin/luci/admin/system/flash and select 'flash image.' Follow the prompts to upload the sysupgrade.bin image and click 'continue' to install Openwrt.
