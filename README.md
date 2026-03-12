@@ -1,7 +1,7 @@
 # Extreme-AP-7612-OpenWRT
 Board files and config for compiling Extreme AP-7612 firmware OpenWRT
 
-# 1.**boot initramfs
+# 1.Getting started and boot initramfs
 Connect to AP via uart on backside of device or port 2 telnet. Escape booting the Extreme OS via spamming any key in order to gain uboot prompt. Next connect your computer to the AP on the wan port (closest to the LEDs.)
 
 setenv serverip [your tftp server ip]
