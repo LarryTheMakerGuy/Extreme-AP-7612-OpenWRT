@@ -7,6 +7,7 @@ Next connect your computer to the AP on the wan port (closest to the LEDs).
 
 # 1.Get booted to initramfs
 Powrer up the AP and escape to uboot prompt by spamming any key. Enter the following commands.
+
 setenv serverip [your tftp server ip]
 
 setenv ipaddress [another ip in the same subnet]
