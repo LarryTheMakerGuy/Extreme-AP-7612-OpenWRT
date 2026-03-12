@@ -1,0 +1,5 @@
+#!/bin/sh
+sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
+sleep 1
+/etc/init.d/network restart
+#wan is now a lan
