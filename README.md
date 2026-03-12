@@ -1,9 +1,12 @@
 # Extreme-AP-7612-OpenWRT
-Board files and config for compiling Extreme AP-7612 firmware OpenWRT and compiled images
+Board files and config for compiling Extreme AP-7612 firmware OpenWRT and compiled images.
 
-# 1.Getting started and boot initramfs
-Connect to AP via uart on backside of device or port 2 telnet. Escape booting the Extreme OS via spamming any key in order to gain uboot prompt. Next connect your computer to the AP on the wan port (closest to the LEDs.)
+# 1.Getting started
+Connect to AP via uart on backside of device. The side closest to LEDS goes to Rx, the next pin over is empty, then TX, then ground.
+Next connect your computer to the AP on the wan port (closest to the LEDs).
 
+# 1.Get booted to initramfs
+Powrer up the AP and escape to uboot prompt by spamming any key. Enter the following commands.
 setenv serverip [your tftp server ip]
 
 setenv ipaddress [another ip in the same subnet]
@@ -28,7 +31,7 @@ nand erase.part rootfs1
 
 saveenv
 
-tftpboot 0x85000000 ipq.itb 
+tftpboot 0x85000000 openwrt-ipq40xx-generic-ap7612-initramfs-uImage.itb
 
 bootm 0x85000000
 
