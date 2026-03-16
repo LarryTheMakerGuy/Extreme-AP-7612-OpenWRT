@@ -1,6 +1,5 @@
 #!/bin/sh
-if grep -q "    list ports 'lan'" /etc/config/network && grep -q "      list ports 'wan'" /etc/config/network; then
-    sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
+if ! grep -q "list ports 'lan'" /etc/config/network || ! grep -q "list ports 'wan'" /etc/config/network; then    sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
     sleep 1
     /etc/init.d/network restart
 fi
