@@ -15,9 +15,15 @@ while true; do
         echo none > "$LED_green/trigger"
         echo 1 > "$LED_green/brightness"
     fi
-    if ping -c 3 -W 1 "$TARGET_blue" >/dev/null 2>&1; then
         echo none > "$LED_green/trigger"
-        echo 1 > "$LED_green/brightness"
+        echo 0 > "$LED_green/brightness"
+
+    if ping -c 3 -W 1 "$TARGET_blue" >/dev/null 2>&1; then
+        echo none > "$LED_blue/trigger"
+        echo 1 > "$LED_blue/brightness"
     fi
+        echo none > "$LED_blue/trigger"
+        echo 0 > "$LED_blue/brightness"
+
     sleep 30
 done
