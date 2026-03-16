@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-// Copyright (c) 2018, Robert Marko <robimarko@gmail.com>
+// Modified code of Copyright (c) 2018, Robert Marko <robimarko@gmail.com>
 
 #include "qcom-ipq4019.dtsi"
 #include <dt-bindings/gpio/gpio.h>
