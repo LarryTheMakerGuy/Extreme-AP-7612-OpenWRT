@@ -71,21 +71,29 @@ pulldowns {
 		
 	gpio-leds {
     compatible = "gpio-leds";
-    led-orange {
-        label = "Extreme ap-dk01.1-c1:orange:status";
-        gpios = <&tlmm 556 GPIO_ACTIVE_HIGH>;  /* tlmm IS correct for IPQ4018 */
-        default-state = "off";
-    };
-    led-green {
-        label = "Extreme ap-dk01.1-c1:green:power";
-        gpios = <&tlmm 555 GPIO_ACTIVE_HIGH>;
-        default-state = "on";
-    };
-    led-blue {
-        label = "Extreme ap-dk01.1-c1:blue:wlan";
-        gpios = <&tlmm 554 GPIO_ACTIVE_HIGH>;
-        default-state = "off";
-    };
+   led@0 {
+            reg = <0>;
+            label = "ap7612:orange:power"; //starts off blinking, but cron job will turn it on when it gets to the script
+            gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
+            default-state = "on";
+            linux,default-trigger = "timer";
+        };
+        
+        led@1 {
+            reg = <1>;
+            label = "ap7612:green:gateway"; // cron job will turn it on if it can ping default gateway 
+            gpios = <&tlmm 43 GPIO_ACTIVE_HIGH>;
+            default-state = "off";
+            linux,default-trigger = "default-off";
+        };
+        
+        led@2 {
+            reg = <2>;
+            label = "ap7612:blue:dns"; // cron job will turn it on if it can ping default 1.1.1.1 
+            gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
+            default-state = "off";
+            linux,default-trigger = "default-off";
+        };
 };
 
 
