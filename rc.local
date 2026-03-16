@@ -1,5 +1,11 @@
 #!/bin/sh
-sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
-sleep 1
-/etc/init.d/network restart
+if grep -q "    list ports 'lan'" /etc/config/network && grep -q "      list ports 'wan'" /etc/config/network; then
+    sed -i "/list ports 'lan'/a\        list ports 'wan'" /etc/config/network
+    sleep 1
+    /etc/init.d/network restart
+fi
 #wan is now a lan
+/usr/bin/led_ctl.sh &
+#run led control script
+exit 0
+
