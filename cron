@@ -1,2 +1,0 @@
-0 0 * * * /etc/init.d/acme renew
-*/1 * * * * /usr/bin/led_ctl.sh >/dev/null 2>&1
